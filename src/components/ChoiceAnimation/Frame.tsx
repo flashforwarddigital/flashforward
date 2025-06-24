@@ -104,16 +104,13 @@ export const Frame = ({ onYearSelect }: FrameProps): JSX.Element => {
               }}
             />
 
-            {/* Power Button Container */}
+            {/* Power Button Container - Centered properly */}
             <div 
-              className="absolute hover:cursor-pointer"
+              className="absolute bottom-0 left-0 right-0 flex justify-center items-center hover:cursor-pointer"
               style={{ 
                 zIndex: 4,
-                width: '256px',
-                height: '40px',
-                bottom: '15%',
-                left: '50%',
-                transform: 'translateX(-50%)'
+                height: '80px',
+                marginBottom: '10%'
               }}
               onClick={handlePowerClick}
             >
@@ -122,13 +119,9 @@ export const Frame = ({ onYearSelect }: FrameProps): JSX.Element => {
                   src="/power.png"
                   alt="Power On Button"
                   style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '0px', 
-                    width: '175%',
-                    height: '175%',
+                    width: 'auto',
+                    height: '100%',
                     objectFit: 'contain',
-                    transform: 'translateY(-60%)',
                   }}
                   className="pulsating-power-button"
                 />
@@ -137,9 +130,9 @@ export const Frame = ({ onYearSelect }: FrameProps): JSX.Element => {
 
             <style>{`
               @keyframes pulsate {
-                0% { transform: scale(1) translateY(-60%); }
-                50% { transform: scale(1.10) translateY(-60%); } /* Scale up by 10 percent */
-                100% { transform: scale(1) translateY(-60%); }
+                0% { transform: scale(1); }
+                50% { transform: scale(1.10); } /* Scale up by 10 percent */
+                100% { transform: scale(1); }
               }
 
               .pulsating-power-button {
@@ -152,13 +145,7 @@ export const Frame = ({ onYearSelect }: FrameProps): JSX.Element => {
               
               @media (orientation: portrait) {
                 .pulsating-power-button {
-                  transform: translateY(-30%) !important;
-                }
-                
-                @keyframes pulsate {
-                  0% { transform: scale(1) translateY(-30%); }
-                  50% { transform: scale(1.10) translateY(-30%); }
-                  100% { transform: scale(1) translateY(-30%); }
+                  height: 60px !important;
                 }
               }
             `}</style>
