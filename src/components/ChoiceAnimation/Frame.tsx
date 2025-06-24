@@ -104,28 +104,23 @@ export const Frame = ({ onYearSelect }: FrameProps): JSX.Element => {
               }}
             />
 
-            {/* Power Button Container - Centered properly */}
-            <div 
-              className="absolute bottom-0 left-0 right-0 flex justify-center items-center hover:cursor-pointer"
-              style={{ 
-                zIndex: 4,
-                height: '80px',
-                marginBottom: '10%'
-              }}
-              onClick={handlePowerClick}
-            >
+            {/* Power Button Container - Properly centered */}
+            <div className="absolute bottom-0 left-0 right-0 flex justify-center items-center mb-[10%] z-[4]">
               {!isZoomed && (
-                <div className="flex justify-center items-center">
+                <div 
+                  className="cursor-pointer flex justify-center items-center"
+                  onClick={handlePowerClick}
+                >
                   <img 
                     src="/power.png"
                     alt="Power On Button"
+                    className="pulsating-power-button"
                     style={{
                       width: 'auto',
-                      height: '100%',
+                      height: 'auto',
                       maxHeight: '80px',
-                      objectFit: 'contain',
+                      objectFit: 'contain'
                     }}
-                    className="pulsating-power-button"
                   />
                 </div>
               )}
