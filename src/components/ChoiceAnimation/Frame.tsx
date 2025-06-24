@@ -104,12 +104,14 @@ export const Frame = ({ onYearSelect }: FrameProps): JSX.Element => {
               }}
             />
 
-            {/* Power Button Container - Adjusted for mobile */}
+            {/* Power Button Container - Fixed positioning for all screen sizes */}
             <div 
-              className="absolute left-1/2 transform -translate-x-1/2 w-[256px] h-[40px] hover:cursor-pointer"
+              className="absolute w-[256px] h-[40px] hover:cursor-pointer"
               style={{ 
                 zIndex: 4,
-                bottom: '15%'
+                bottom: '15%',
+                left: '50%',
+                transform: 'translateX(-50%)'
               }}
               onClick={handlePowerClick}
             >
