@@ -900,4 +900,27 @@
   .win95-work-grid {
     grid-template-columns: 1fr;
   }
+  
+  /* Make window controls bigger for touch */
+  .win95-window-button {
+    width: 20px;
+    height: 18px;
+    font-size: 12px;
+  }
+  
+  /* Increase touch targets */
+  .win95-folder-item {
+    padding: 8px 4px;
+  }
+  
+  /* Make start menu wider on mobile */
+  .win95-start-menu {
+    width: 220px;
+  }
+  
+  /* Ensure windows are properly sized on mobile */
+  .win95-window {
+    max-width: 100vw !important;
+    max-height: calc(100vh - 28px) !important;
+  }
 }

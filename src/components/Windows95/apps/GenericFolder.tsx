@@ -26,6 +26,7 @@ const GAME_APP_IDS = [
 
 const GenericFolder: React.FC<GenericFolderProps> = ({ onOpenApp, items }) => {
   const { onBack } = useWindowsContext();
+  const isMobile = window.innerWidth < 768;
 
   const handleItemClick = (item: FolderItem) => {
     if (item.isBuiltIn && item.appId) {
@@ -96,8 +97,8 @@ const GenericFolder: React.FC<GenericFolderProps> = ({ onOpenApp, items }) => {
         <div 
           key={index} 
           className="win95-folder-item"
-          onDoubleClick={() => { if (!item.openOnSingleClick) handleItemClick(item); }}
-          onClick={() => { if (item.openOnSingleClick) handleItemClick(item); }}
+          onDoubleClick={() => { if (!item.openOnSingleClick && !isMobile) handleItemClick(item); }}
+          onClick={() => { if (item.openOnSingleClick || isMobile) handleItemClick(item); }}
         >
           <img 
             src={item.icon} 

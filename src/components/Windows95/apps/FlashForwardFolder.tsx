@@ -8,6 +8,7 @@ import RandomAudioPlayer from './RandomAudioPlayer'; // Keep import for other po
 const FlashForwardFolder: React.FC<AppContentProps> = ({ onOpenApp }) => {
   const { onBack } = useWindowsContext();
   const [isTestimonialsPressed, setIsTestimonialsPressed] = useState(false); // New state for press effect
+  const isMobile = window.innerWidth < 768;
 
   const handleItemClick = (item: FolderItem) => {
     // Handle opening other apps/windows
@@ -74,7 +75,7 @@ const FlashForwardFolder: React.FC<AppContentProps> = ({ onOpenApp }) => {
         <div 
           key={index} 
           className="win95-folder-item"
-          onDoubleClick={() => { if (!item.audioUrls) handleItemClick(item); }}
+          onDoubleClick={() => { if (!item.audioUrls && !isMobile) handleItemClick(item); }}
           onClick={() => {
             if (item.audioUrls) {
               playRandomTestimonial(item.audioUrls);
@@ -82,7 +83,7 @@ const FlashForwardFolder: React.FC<AppContentProps> = ({ onOpenApp }) => {
               setTimeout(() => {
                 setIsTestimonialsPressed(false); 
               }, 150);
-            } else if (item.openOnSingleClick) {
+            } else if (item.openOnSingleClick || isMobile) {
               handleItemClick(item);
             }
           }}

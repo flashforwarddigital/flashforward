@@ -190,17 +190,13 @@ const Desktop: React.FC<Windows95DesktopProps> = ({ onBack }) => {
     posthog.capture('new_folder_created');
   };
 
-  // Adjust icon positions for mobile
-  const getAdjustedIconPosition = (originalX: number, originalY: number, index: number) => {
+  // Keep icons on the left for mobile view
+  const getIconPosition = (originalX: number, originalY: number, index: number) => {
     if (isMobile) {
-      // For mobile, create a grid layout
-      const iconsPerRow = Math.floor(window.innerWidth / 80);
-      const col = index % iconsPerRow;
-      const row = Math.floor(index / iconsPerRow);
-      
+      // For mobile, create a vertical column layout on the left
       return {
-        x: col * 80 + 20,
-        y: row * 100 + 20
+        x: 20, // Keep all icons on the left
+        y: index * 90 + 20 // Stack vertically with spacing
       };
     }
     
@@ -235,7 +231,7 @@ const Desktop: React.FC<Windows95DesktopProps> = ({ onBack }) => {
               id={id}
               name={app.name}
               icon={app.icon}
-              {...getAdjustedIconPosition(app.position.x, app.position.y, index)}
+              {...getIconPosition(app.position.x, app.position.y, index)}
               onOpen={() => handleOpenApp(id, app.contentType === 'component' ? React.createElement(app.component as React.ComponentType<AppContentProps>, { onOpenApp: handleOpenApp }) : undefined, app.name)}
             />
           ))}
@@ -294,7 +290,7 @@ const Desktop: React.FC<Windows95DesktopProps> = ({ onBack }) => {
               }
           }
 
-          // Position AI tools more towards the center of the screen
+          // Position windows appropriately for mobile
           let position = dynamicApp?.position || app.position || { x: 100, y: 100 };
           
           // For mobile, center windows
