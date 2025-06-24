@@ -78,20 +78,20 @@ export const Frame = ({ onYearSelect }: FrameProps): JSX.Element => {
             </div>
 
             {/* Buttons Container */}
-            <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 transition-opacity duration-300 ${showButtons ? 'opacity-100' : 'opacity-0'}`} style={{ zIndex: showButtons ? 5 : 1, width: '80vw', maxWidth: '640px' }}>
+            <div className={`absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-[640px] h-[480px] flex items-center justify-center gap-12 transition-opacity duration-300 ${showButtons ? 'opacity-100' : 'opacity-0'}`} style={{ zIndex: showButtons ? 5 : 1 }}>
               <div 
                 className="cursor-pointer flex items-center justify-center"
                 onClick={() => onYearSelect('1996')}
                 style={{ width: 'auto', height: 'auto' }}
               >
-                <img src="/1996.png" alt="1996" style={{ width: '120px', height: 'auto', maxWidth: '100%' }} />
+                <img src="/1996.png" alt="1996" style={{ width: '150px', height: 'auto', maxWidth: '100%' }} />
               </div>
               <div 
                 className="cursor-pointer flex items-center justify-center"
                 onClick={() => onYearSelect('2025')}
                 style={{ width: 'auto', height: 'auto' }}
               >
-                <img src="/2025.png" alt="2025" style={{ width: '120px', height: 'auto', maxWidth: '100%' }} />
+                <img src="/2025.png" alt="2025" style={{ width: '150px', height: 'auto', maxWidth: '100%' }} />
               </div>
             </div>
 
@@ -115,16 +115,19 @@ export const Frame = ({ onYearSelect }: FrameProps): JSX.Element => {
               onClick={handlePowerClick}
             >
               {!isZoomed && (
-                <img 
-                  src="/power.png"
-                  alt="Power On Button"
-                  style={{
-                    width: 'auto',
-                    height: '100%',
-                    objectFit: 'contain',
-                  }}
-                  className="pulsating-power-button"
-                />
+                <div className="flex justify-center items-center">
+                  <img 
+                    src="/power.png"
+                    alt="Power On Button"
+                    style={{
+                      width: 'auto',
+                      height: '100%',
+                      maxHeight: '80px',
+                      objectFit: 'contain',
+                    }}
+                    className="pulsating-power-button"
+                  />
+                </div>
               )}
             </div>
 
