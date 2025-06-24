@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useWindowsContext } from '../../contexts/WindowsContext';
 import useSound from 'use-sound';
 import { WindowProps } from '../../types/window';
@@ -20,6 +20,7 @@ const Window: React.FC<WindowProps> = ({
   const { bringToFront } = useWindowsContext();
   const [playMaximize] = useSound('/sounds/windows95-maximize.mp3');
   const [playMinimize] = useSound('/sounds/windows95-minimize.mp3');
+  const touchStartRef = useRef<{x: number, y: number} | null>(null);
 
   const {
     windowRef,
@@ -36,7 +37,7 @@ const Window: React.FC<WindowProps> = ({
     type: type || 'default'
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (windowRef.current) {
       bringToFront(id);
     }
@@ -51,10 +52,47 @@ const Window: React.FC<WindowProps> = ({
     playMaximize();
     handleMaximize();
   };
+  
+  // Handle touch events for mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.target instanceof HTMLButtonElement || windowState.isMaximized) return;
+    
+    const touch = e.touches[0];
+    touchStartRef.current = {
+      x: touch.clientX,
+      y: touch.clientY
+    };
+    
+    // Simulate mouse down for drag
+    handleMouseDown({
+      clientX: touch.clientX,
+      clientY: touch.clientY,
+      preventDefault: () => {},
+      target: e.target
+    } as unknown as React.MouseEvent);
+  };
 
   if (isMinimized) {
     return null;
   }
+
+  // Adjust window size for mobile
+  const adjustWindowSize = () => {
+    if (window.innerWidth < 768 && !windowState.isMaximized) {
+      // For small screens, make windows more appropriate for the viewport
+      const maxWidth = Math.min(windowState.size.width, window.innerWidth - 20);
+      const maxHeight = Math.min(windowState.size.height, window.innerHeight - 60);
+      
+      return {
+        width: maxWidth,
+        height: maxHeight
+      };
+    }
+    
+    return windowState.size;
+  };
+
+  const adjustedSize = adjustWindowSize();
 
   return (
     <div
@@ -64,17 +102,20 @@ const Window: React.FC<WindowProps> = ({
         position: 'absolute',
         left: `${windowState.position.x}px`,
         top: `${windowState.position.y}px`,
-        width: `${windowState.size.width}px`,
-        height: `${windowState.size.height}px`,
+        width: `${adjustedSize.width}px`,
+        height: `${adjustedSize.height}px`,
         cursor: windowState.isDragging ? 'grabbing' : 'default',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        maxWidth: '100vw',
+        maxHeight: `calc(100vh - 28px)` // Account for taskbar
       }}
       onClick={() => bringToFront(id)}
     >
       <div 
         className="win95-window-title"
         onMouseDown={handleMouseDown}
+        onTouchStart={handleTouchStart}
         style={{ cursor: windowState.isDragging ? 'grabbing' : 'grab' }}
       >
         <div className="win95-window-title-text">{title}</div>

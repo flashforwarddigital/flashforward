@@ -237,6 +237,13 @@
   display: flex;
   flex-grow: 1;
   height: 100%;
+  overflow-x: auto;
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+}
+
+.win95-taskbar-items::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
 }
 
 .win95-taskbar-item {
@@ -253,6 +260,17 @@
   min-width: 100px;
   max-width: 200px;
   cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .win95-taskbar-item {
+    min-width: 80px;
+    max-width: 120px;
+  }
 }
 
 .win95-taskbar-item.active {
@@ -278,12 +296,20 @@
   padding: 2px 4px;
   gap: 16px;
   user-select: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.win95-window-menubar::-webkit-scrollbar {
+  display: none;
 }
 
 .win95-window-menubar-item {
   font-size: 12px;
   padding: 2px 6px;
   cursor: default;
+  white-space: nowrap;
 }
 
 .win95-folder-content {
@@ -295,6 +321,12 @@
   flex: 1;
   overflow-y: auto;
   min-height: 0;
+}
+
+@media (max-width: 640px) {
+  .win95-folder-content {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
 }
 
 .win95-folder-item {
@@ -744,10 +776,12 @@
   display: flex;
   gap: 4px;
   margin-bottom: 15px;
+  flex-wrap: wrap;
 }
 
 .win95-work-categories .win95-button {
   flex: 1;
+  min-width: 80px;
 }
 
 .win95-work-categories .win95-button.active {
@@ -834,4 +868,36 @@
 
 .win95-window.maximized .win95-window-resize-handle {
   display: none;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .win95-desktop-icon {
+    --win95-desktop-icon-spacing: 80px;
+    --win95-desktop-icon-size: 32px;
+  }
+  
+  .win95-desktop-icon-text {
+    font-size: 10px;
+    max-width: 70px;
+  }
+  
+  .win95-window-menubar {
+    gap: 8px;
+  }
+  
+  .win95-window-menubar-item {
+    font-size: 11px;
+    padding: 2px 4px;
+  }
+  
+  .win95-context-menu {
+    max-width: 90vw;
+  }
+  
+  .win95-services-list,
+  .win95-pricing-list,
+  .win95-work-grid {
+    grid-template-columns: 1fr;
+  }
 }

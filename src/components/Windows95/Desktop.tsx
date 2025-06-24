@@ -39,6 +39,7 @@ const Desktop: React.FC<Windows95DesktopProps> = ({ onBack }) => {
   const [contextMenu, setContextMenu] = useState<ContextMenuPosition | null>(null);
   const [currentTutorialStep, setCurrentTutorialStep] = useState(0);
   const [dynamicApps, setDynamicApps] = useState<{ [key: string]: { content: React.ReactNode, title: string, position?: { x: number; y: number } } }>({});
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   
   const [playMinimize] = useSound('/sounds/windows95-minimize.mp3');
   const [playMaximize] = useSound('/sounds/windows95/sounds/windows95-maximize.mp3');
@@ -46,20 +47,47 @@ const Desktop: React.FC<Windows95DesktopProps> = ({ onBack }) => {
   useEffect(() => {
     // Track page view with PostHog
     posthog.capture('page_view', { page: 'windows95_desktop' });
+    
+    // Check if device is mobile
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Adjust tutorial steps position for mobile
+  const getTutorialPosition = (step: number) => {
+    if (isMobile) {
+      // Center tutorial popups on mobile
+      return { 
+        x: window.innerWidth / 2 - 150, 
+        y: window.innerHeight / 3 
+      };
+    }
+    
+    // Default positions for desktop
+    switch(step) {
+      case 0: return { x: 200, y: 200 };
+      case 1: return { x: 250, y: 250 };
+      case 2: return { x: 300, y: 300 };
+      default: return { x: 200, y: 200 };
+    }
+  };
 
   const tutorialSteps = [
     {
       message: "Welcome to 1996",
-      position: { x: 200, y: 200 }
+      position: getTutorialPosition(0)
     },
     {
       message: "Feel free to explore the site! Double-click on icons to open them and have some fun.",
-      position: { x: 250, y: 250 }
+      position: getTutorialPosition(1)
     },
     {
       message: "The Flash Forward folder contains our digital agency services. Take a look inside. Click on 'Update' if you want to update the website to a 2025 one!",
-      position: { x: 300, y: 300 }
+      position: getTutorialPosition(2)
     }
   ];
 
@@ -133,7 +161,11 @@ const Desktop: React.FC<Windows95DesktopProps> = ({ onBack }) => {
     e.preventDefault();
     // Only show context menu if clicking directly on the desktop
     if (e.target === e.currentTarget) {
-      setContextMenu({ x: e.clientX, y: e.clientY });
+      // Adjust position for mobile to ensure menu is fully visible
+      const x = Math.min(e.clientX, window.innerWidth - 180);
+      const y = Math.min(e.clientY, window.innerHeight - 200);
+      
+      setContextMenu({ x, y });
       
       // Track context menu opening with PostHog
       posthog.capture('desktop_context_menu_opened');
@@ -158,6 +190,27 @@ const Desktop: React.FC<Windows95DesktopProps> = ({ onBack }) => {
     posthog.capture('new_folder_created');
   };
 
+  // Adjust icon positions for mobile
+  const getAdjustedIconPosition = (originalX: number, originalY: number, index: number) => {
+    if (isMobile) {
+      // For mobile, create a grid layout
+      const iconsPerRow = Math.floor(window.innerWidth / 80);
+      const col = index % iconsPerRow;
+      const row = Math.floor(index / iconsPerRow);
+      
+      return {
+        x: col * 80 + 20,
+        y: row * 100 + 20
+      };
+    }
+    
+    // For desktop, use original positions
+    return {
+      x: originalX * 0.95,
+      y: originalY * 0.95
+    };
+  };
+
   return (
     <WindowsContextProvider onBack={onBack}>
       <div 
@@ -174,20 +227,18 @@ const Desktop: React.FC<Windows95DesktopProps> = ({ onBack }) => {
         )}
         
         {/* Render predefined app icons */}
-        {Object.entries(appData).map(([id, app]) => (
-          // Only render icons that have a position defined (i.e., are on the desktop)
-          app.position && (app.position.x > 0 || app.position.y > 0) ? (
-          <Icon 
-            key={id}
-            id={id}
-            name={app.name}
-            icon={app.icon}
-              x={app.position.x * 0.95}
-              y={app.position.y * 0.95}
-            onOpen={() => handleOpenApp(id, app.contentType === 'component' ? React.createElement(app.component as React.ComponentType<AppContentProps>, { onOpenApp: handleOpenApp }) : undefined, app.name)}
-          />
-          ) : null
-        ))}
+        {Object.entries(appData)
+          .filter(([_, app]) => app.position && (app.position.x > 0 || app.position.y > 0))
+          .map(([id, app], index) => (
+            <Icon 
+              key={id}
+              id={id}
+              name={app.name}
+              icon={app.icon}
+              {...getAdjustedIconPosition(app.position.x, app.position.y, index)}
+              onOpen={() => handleOpenApp(id, app.contentType === 'component' ? React.createElement(app.component as React.ComponentType<AppContentProps>, { onOpenApp: handleOpenApp }) : undefined, app.name)}
+            />
+          ))}
         
         {/* Render predefined and dynamic app windows */}
         {[...openApps].map(appId => {
@@ -245,7 +296,14 @@ const Desktop: React.FC<Windows95DesktopProps> = ({ onBack }) => {
 
           // Position AI tools more towards the center of the screen
           let position = dynamicApp?.position || app.position || { x: 100, y: 100 };
-          if (appId.includes('chatbot') || appId.includes('imageGenerator') || 
+          
+          // For mobile, center windows
+          if (isMobile) {
+            position = { 
+              x: Math.max(0, (window.innerWidth - (predefinedApp?.defaultSize?.width || 400)) / 2), 
+              y: 50 
+            };
+          } else if (appId.includes('chatbot') || appId.includes('imageGenerator') || 
               appId.includes('voicebot') || appId.includes('gpt90s')) {
             position = { x: 300, y: 100 };
           }
