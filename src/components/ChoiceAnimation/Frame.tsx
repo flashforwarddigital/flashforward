@@ -104,11 +104,13 @@ export const Frame = ({ onYearSelect }: FrameProps): JSX.Element => {
               }}
             />
 
-            {/* Power Button Container - Fixed positioning for all screen sizes */}
+            {/* Power Button Container */}
             <div 
-              className="absolute w-[256px] h-[40px] hover:cursor-pointer"
+              className="absolute hover:cursor-pointer"
               style={{ 
                 zIndex: 4,
+                width: '256px',
+                height: '40px',
                 bottom: '15%',
                 left: '50%',
                 transform: 'translateX(-50%)'
