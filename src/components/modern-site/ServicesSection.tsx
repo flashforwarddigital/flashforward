@@ -74,12 +74,12 @@ const ServiceCard: React.FC<{ service: Service; index: number; onOpenDetails: ()
     <NeonCard index={index} hasPadding={true}>
       <div className="flex flex-col h-full">
         <h3 
-          className={`${typography.fontSize.xl} ${typography.fontFamily.light} ${typography.tracking.tight} mb-4`}
+          className={`${typography.fontSize.lg} md:${typography.fontSize.xl} ${typography.fontFamily.light} ${typography.tracking.tight} mb-4`}
           style={{ color: colors.text.white }}
         >
           {service.title}
         </h3>
-        <p className={`${colors.text.gray[400]} ${typography.fontFamily.light} ${typography.tracking.tight} flex-grow`}>
+        <p className={`${colors.text.gray[400]} ${typography.fontFamily.light} ${typography.tracking.tight} flex-grow text-sm md:text-base`}>
           {service.description}
         </p>
         <button 
@@ -141,10 +141,10 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ className = ""
   return (
     <section id="services" className={`${spacing.section.padding} ${typography.tracking.tight} bg-black/50 ${className}`}>
       <div className={`container mx-auto ${spacing.container.padding}`}>
-        <h2 className={`${typography.fontSize['4xl']} sm:text-5xl lg:text-[64px] ${colors.text.white} text-center mb-12 ${typography.tracking.tighter} font-bold`}>
+        <h2 className={`${typography.fontSize['3xl']} sm:text-4xl lg:text-[64px] ${colors.text.white} text-center mb-8 md:mb-12 ${typography.tracking.tighter} font-bold`}>
           our services
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
           {services.map((service, index) => (
             <ServiceCard 
               key={service.id} 

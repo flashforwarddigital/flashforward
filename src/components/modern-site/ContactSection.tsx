@@ -70,7 +70,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ className = "" }
   return (
     <section id="contact" className={`${spacing.section.padding} ${typography.tracking.tight} bg-black/30 ${className}`}>
       <div className={`container mx-auto ${spacing.container.padding}`}>
-        <h2 className={`${typography.fontSize['4xl']} sm:text-5xl lg:text-[64px] ${colors.text.white} text-center mb-12 ${typography.tracking.tighter} font-bold`}>
+        <h2 className={`${typography.fontSize['3xl']} sm:text-4xl lg:text-[64px] ${colors.text.white} text-center mb-8 md:mb-12 ${typography.tracking.tighter} font-bold`}>
           contact us
         </h2>
         <div className={`${spacing.container.maxWidth.sm} mx-auto`}>
@@ -80,7 +80,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ className = "" }
               <p>Thank you for reaching out. We'll get back to you shortly.</p>
             </div>
           ) : (
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               {status === 'error' && (
                 <div className="bg-red-500/10 border border-red-500/20 text-red-500 p-3 rounded">
                   {errorMessage}

@@ -91,6 +91,18 @@ const InteractiveHero: React.FC = () => {
   const dotsRef = useRef<any[]>([]);
   const mousePositionRef = useRef<{ x: number | null; y: number | null }>({ x: null, y: null });
   const [showVideo, setShowVideo] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleMouseMove = useCallback((event: MouseEvent) => {
     const canvas = canvasRef.current;
@@ -115,7 +127,7 @@ const InteractiveHero: React.FC = () => {
   ];
 
   return (
-    <div className="pt-[100px] relative bg-black text-gray-300 min-h-screen flex flex-col overflow-x-hidden">
+    <div className="pt-16 md:pt-[100px] relative bg-black text-gray-300 min-h-screen flex flex-col overflow-x-hidden">
       <canvas ref={canvasRef} className="absolute inset-0 z-0 pointer-events-none opacity-80" />
 
       <main className="flex-grow flex flex-col items-center justify-center text-center px-4 pt-8 pb-12 relative z-10">
@@ -123,7 +135,7 @@ const InteractiveHero: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl sm:text-5xl lg:text-[64px] text-white leading-tight max-w-4xl mb-8 flex flex-col items-center tracking-tighter"
+          className="text-3xl sm:text-4xl lg:text-[64px] text-white leading-tight max-w-4xl mb-6 md:mb-8 flex flex-col items-center tracking-tighter"
         >
           <span className="block mb-2 font-bold">flash forward with</span>
           <div className="h-[1.2em] overflow-hidden">
@@ -143,8 +155,8 @@ const InteractiveHero: React.FC = () => {
         >
           <div onClick={() => setShowVideo(true)} className="cursor-pointer">
             <HoverBorderGradient
-              className="text-xl font-light tracking-tight"
-              containerClassName="scale-110"
+              className="text-lg md:text-xl font-light tracking-tight"
+              containerClassName="scale-100 md:scale-110"
               duration={1.5}
             >
               watch video
@@ -166,21 +178,23 @@ const InteractiveHero: React.FC = () => {
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
-              className="relative"
+              className="relative w-full max-w-4xl"
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                className="absolute top-2 right-2 text-white text-2xl z-10"
+                className="absolute top-2 right-2 text-white text-2xl z-10 bg-black/50 rounded-full w-8 h-8 flex items-center justify-center"
                 onClick={() => setShowVideo(false)}
               >
                 &times;
               </button>
-              <video
-                src="https://file.garden/Zxsc5-9aojhlnJO6/flashforowarddraft.mp4"
-                controls
-                autoPlay
-                className="max-w-full max-h-screen"
-              />
+              <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg">
+                <video
+                  src="https://file.garden/Zxsc5-9aojhlnJO6/flashforowarddraft.mp4"
+                  controls
+                  autoPlay
+                  className="absolute top-0 left-0 w-full h-full"
+                />
+              </div>
             </motion.div>
           </motion.div>
         )}

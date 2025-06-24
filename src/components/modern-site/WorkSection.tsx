@@ -63,10 +63,10 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ className = "" }) => {
   return (
     <section id="work" className={`${spacing.section.padding} ${typography.tracking.tight} bg-black/50 ${className}`}>
       <div className={`container mx-auto ${spacing.container.padding}`}>
-        <h2 className={`${typography.fontSize['4xl']} sm:text-5xl lg:text-[64px] ${colors.text.white} text-center mb-12 ${typography.tracking.tighter} font-bold`}>
+        <h2 className={`${typography.fontSize['3xl']} sm:text-4xl lg:text-[64px] ${colors.text.white} text-center mb-8 md:mb-12 ${typography.tracking.tighter} font-bold`}>
           our work
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {workItems.map((work, index) => (
             <WorkCard 
               key={work.id} 
@@ -88,17 +88,18 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ className = "" }) => {
 // Separate WorkCard component with proper onClick handling
 const WorkCard: React.FC<{ work: Work; index: number; onClick: () => void }> = ({ work, index, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   return (
-    <div onClick={onClick}>
+    <div onClick={onClick} className="cursor-pointer">
       <NeonCard
         index={index}
-        className="aspect-video flex items-center justify-center cursor-pointer"
+        className="aspect-video flex items-center justify-center"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         hasPadding={!isHovered || !work.imageUrl}
       >
-        {isHovered && work.imageUrl ? (
+        {(isHovered || isMobile) && work.imageUrl ? (
           <img 
             src={work.imageUrl}
             alt={work.title}
@@ -106,7 +107,7 @@ const WorkCard: React.FC<{ work: Work; index: number; onClick: () => void }> = (
           />
         ) : (
           <h3 
-            className={`${typography.fontSize['4xl']} ${typography.fontFamily.light} ${typography.tracking.tighter} z-10`} 
+            className={`${typography.fontSize['2xl']} md:${typography.fontSize['4xl']} ${typography.fontFamily.light} ${typography.tracking.tighter} z-10`} 
             style={{ color: colors.text.white }}
           >
             {work.title}

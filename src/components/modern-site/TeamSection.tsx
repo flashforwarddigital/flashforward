@@ -56,10 +56,10 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ className = "" }) => {
   return (
     <section id="team" className={`${spacing.section.padding} ${typography.tracking.tight} bg-black/50 ${className}`}>
       <div className={`container mx-auto ${spacing.container.padding}`}>
-        <h2 className={`${typography.fontSize['4xl']} sm:text-5xl lg:text-[64px] ${colors.text.white} text-center mb-12 ${typography.tracking.tighter} font-bold`}>
+        <h2 className={`${typography.fontSize['3xl']} sm:text-4xl lg:text-[64px] ${colors.text.white} text-center mb-8 md:mb-12 ${typography.tracking.tighter} font-bold`}>
           our team
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-8 max-w-7xl mx-auto">
           {teamMembers.map((member, index) => (
             <motion.div
               key={index}
@@ -67,17 +67,17 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ className = "" }) => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 * (index + 1) }}
+              transition={{ delay: 0.1 * (index % 3 + 1) }} // Stagger by row for mobile
             >
               <img 
                 src={member.image} 
                 alt={member.name} 
-                className="w-32 h-32 mx-auto mb-4 object-cover"
+                className="w-24 h-24 md:w-32 md:h-32 mx-auto mb-3 md:mb-4 object-cover"
               />
-              <h3 className={`${typography.fontSize.lg} ${typography.fontFamily.light} ${colors.text.white} ${typography.tracking.tighter}`}>
+              <h3 className={`${typography.fontSize.base} md:${typography.fontSize.lg} ${typography.fontFamily.light} ${colors.text.white} ${typography.tracking.tighter}`}>
                 {member.name}
               </h3>
-              <p className={`${typography.fontFamily.light} ${typography.tracking.tight}`} style={{ color: member.color }}>
+              <p className={`${typography.fontFamily.light} ${typography.tracking.tight} text-xs md:text-sm`} style={{ color: member.color }}>
                 {member.role}
               </p>
             </motion.div>
@@ -86,4 +86,4 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ className = "" }) => {
       </div>
     </section>
   );
-}; 
+};

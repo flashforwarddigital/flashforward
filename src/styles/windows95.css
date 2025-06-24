@@ -923,4 +923,38 @@
     max-width: 100vw !important;
     max-height: calc(100vh - 28px) !important;
   }
+  
+  /* Improve calculator buttons for touch */
+  .calculator-grid button {
+    padding: 8px 4px;
+    font-size: 16px;
+  }
+  
+  /* Make context menu items bigger for touch */
+  .win95-context-menu-item {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+  
+  /* Improve start menu items for touch */
+  .win95-start-menu-item {
+    padding: 8px 6px;
+  }
+  
+  /* Adjust taskbar for mobile */
+  .win95-taskbar-clock {
+    padding: 0 4px;
+    font-size: 10px;
+  }
+  
+  /* Improve folder view for mobile */
+  .win95-folder-item-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  /* Adjust window title for mobile */
+  .win95-window-title {
+    height: 24px;
+  }
 }

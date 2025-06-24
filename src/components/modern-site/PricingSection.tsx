@@ -114,16 +114,17 @@ const PricingCard: React.FC<{ plan: PricingPlan; index: number }> = ({ plan, ind
           {plan.title}
         </h3>
         <div 
-          className={`${typography.fontSize['4xl']} ${typography.fontFamily.light} ${typography.tracking.tighter} mb-6`}
+          className={`${typography.fontSize['3xl']} md:${typography.fontSize['4xl']} ${typography.fontFamily.light} ${typography.tracking.tighter} mb-4 md:mb-6`}
           style={{ color: colors.text.white }}
         >
           {plan.price}
         </div>
-        <ul className="space-y-4 flex-grow">
+        <p className="text-gray-400 text-sm md:text-base mb-4">{plan.description}</p>
+        <ul className="space-y-2 md:space-y-4 flex-grow">
           {plan.features.map((feature, i) => (
             <li 
               key={i}
-              className={`${colors.text.gray[400]} ${typography.fontFamily.light} ${typography.tracking.tight} flex items-center`}
+              className={`${colors.text.gray[400]} ${typography.fontFamily.light} ${typography.tracking.tight} flex items-center text-sm md:text-base`}
             >
               <span className="mr-2">•</span>
               {feature}
@@ -157,16 +158,16 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ className = "" }
   return (
     <section id="pricing" className={`${spacing.section.padding} ${typography.tracking.tight} bg-black/50 ${className}`}>
       <div className={`container mx-auto ${spacing.container.padding}`}>
-        <h2 className={`${typography.fontSize['4xl']} sm:text-5xl lg:text-[64px] ${colors.text.white} text-center mb-12 ${typography.tracking.tighter} font-bold`}>
+        <h2 className={`${typography.fontSize['3xl']} sm:text-4xl lg:text-[64px] ${colors.text.white} text-center mb-8 md:mb-12 ${typography.tracking.tighter} font-bold`}>
           pricing
         </h2>
         
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-8 md:mb-12">
           <div className={`${colors.background.card} p-1 rounded-full`}>
             <div className="flex relative">
               <button
                 onClick={() => setPricingType('packages')}
-                className={`px-6 py-2 rounded-full text-sm ${typography.fontFamily.light} ${transitions.colors} relative z-10 ${
+                className={`px-4 md:px-6 py-2 rounded-full text-sm ${typography.fontFamily.light} ${transitions.colors} relative z-10 ${
                   pricingType === 'packages' ? 'text-black' : colors.text.white
                 }`}
               >
@@ -174,7 +175,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ className = "" }
               </button>
               <button
                 onClick={() => setPricingType('subscription')}
-                className={`px-6 py-2 rounded-full text-sm ${typography.fontFamily.light} ${transitions.colors} relative z-10 ${
+                className={`px-4 md:px-6 py-2 rounded-full text-sm ${typography.fontFamily.light} ${transitions.colors} relative z-10 ${
                   pricingType === 'subscription' ? 'text-black' : colors.text.white
                 }`}
               >
@@ -195,37 +196,37 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ className = "" }
 
         {pricingType === 'subscription' ? (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
               {Object.entries(subscriptionCategories).map(([key, category], index) => (
                 <div key={key} className="flex flex-col items-center">
-                  <h3 className={`${typography.fontSize['2xl']} ${typography.fontFamily.light} mb-6 text-center ${typography.tracking.tight}`} style={{ color: colors.text.white }}>
+                  <h3 className={`${typography.fontSize.xl} md:${typography.fontSize['2xl']} ${typography.fontFamily.light} mb-4 md:mb-6 text-center ${typography.tracking.tight}`} style={{ color: colors.text.white }}>
                     {category.title}
                   </h3>
                   
-                  <NeonCard index={index} className="flex flex-col p-6 w-full">
-                    <div className="space-y-4 w-full">
+                  <NeonCard index={index} className="flex flex-col p-4 md:p-6 w-full">
+                    <div className="space-y-3 md:space-y-4 w-full">
                       {category.services.map((service, i) => (
                         <div
                           key={i}
-                          className={`flex items-center justify-between rounded-lg border-[0.5px] ${transitions.all} hover:bg-black/20 p-4`}
+                          className={`flex items-center justify-between rounded-lg border-[0.5px] ${transitions.all} hover:bg-black/20 p-3 md:p-4`}
                           style={{
                             borderColor: selectedServices.includes(service.name) ? colors.text.white : colors.border.dark
                           }}
                         >
-                          <div className="flex items-center flex-grow mr-4">
+                          <div className="flex items-center flex-grow mr-2 md:mr-4">
                             <span className={`${colors.text.white} ${typography.fontFamily.light} mr-2`}>•</span>
-                            <span className={`${colors.text.white} ${typography.fontFamily.light}`}>{service.name}</span>
+                            <span className={`${colors.text.white} ${typography.fontFamily.light} text-sm md:text-base`}>{service.name}</span>
                           </div>
-                          <span className={`${typography.fontFamily.light} ${colors.text.white} mr-4`}>${service.price}/mo</span>
+                          <span className={`${typography.fontFamily.light} ${colors.text.white} mr-2 md:mr-4 text-sm md:text-base`}>${service.price}/mo</span>
                           <button
                             onClick={() => toggleService(service.name)}
-                            className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent ${transitions.colors} ${effects.focus.outline}`}
+                            className={`relative inline-flex h-5 md:h-6 w-10 md:w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent ${transitions.colors} ${effects.focus.outline}`}
                             style={{ 
                               backgroundColor: selectedServices.includes(service.name) ? colors.text.white : colors.border.light
                             }}
                           >
                             <span
-                              className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-black shadow ring-0 ${transitions.all} ${
+                              className={`pointer-events-none inline-block h-4 md:h-5 w-4 md:w-5 transform rounded-full bg-black shadow ring-0 ${transitions.all} ${
                                 selectedServices.includes(service.name) ? 'translate-x-5' : 'translate-x-0'
                               }`}
                             />
@@ -238,15 +239,15 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ className = "" }
               ))}
             </div>
 
-            <NeonCard className="mt-8 max-w-md mx-auto p-6">
+            <NeonCard className="mt-8 max-w-md mx-auto p-4 md:p-6">
               <div className="flex flex-col items-center w-full">
                 <span className={`${colors.text.white} ${typography.fontFamily.light} mb-2 text-center`}>Total Monthly Investment</span>
-                <span className={`${typography.fontSize['3xl']} ${typography.fontFamily.light} ${colors.text.white} mb-4 text-center`}>${calculateTotal()}/mo</span>
+                <span className={`${typography.fontSize['2xl']} md:${typography.fontSize['3xl']} ${typography.fontFamily.light} ${colors.text.white} mb-4 text-center`}>${calculateTotal()}/mo</span>
               </div>
             </NeonCard>
           </>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
             {pricingPlans.map((plan, index) => (
               <PricingCard key={index} plan={plan} index={index} />
             ))}
@@ -255,4 +256,4 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ className = "" }
       </div>
     </section>
   );
-}; 
+};
