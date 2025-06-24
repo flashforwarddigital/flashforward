@@ -1,0 +1,151 @@
+.gpt90s-container {
+  background-color: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: 1px 1px 0 0 #dfdfdf inset, -1px -1px 0 0 #808080 inset;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+}
+
+.gpt90s-header {
+  background: linear-gradient(90deg, #000080, #1084d0);
+  color: white;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gpt90s-header-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.gpt90s-header-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.gpt90s-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.gpt90s-messages {
+  flex: 1;
+  overflow-y: auto;
+  background-color: white;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.gpt90s-message {
+  margin-bottom: 15px;
+  padding: 8px;
+  border-radius: 0;
+}
+
+.gpt90s-message-user {
+  background-color: #f0f0f0;
+  border-left: 4px solid #000080;
+}
+
+.gpt90s-message-assistant {
+  background-color: #e0f0ff;
+  border-left: 4px solid #008000;
+}
+
+.gpt90s-input-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.gpt90s-textarea {
+  height: 80px;
+  padding: 8px;
+  resize: none;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  box-shadow: 1px 1px 0 0 #dfdfdf inset;
+  margin-bottom: 10px;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 12px;
+}
+
+.gpt90s-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gpt90s-status {
+  font-size: 11px;
+  color: #555;
+}
+
+.gpt90s-typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.gpt90s-typing-indicator span {
+  width: 6px;
+  height: 6px;
+  background-color: #008000;
+  border-radius: 50%;
+  animation: gpt90s-typing 1s infinite ease-in-out;
+}
+
+.gpt90s-typing-indicator span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.gpt90s-typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.gpt90s-typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes gpt90s-typing {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.gpt90s-error {
+  color: red;
+  padding: 5px;
+  border: 1px solid red;
+  margin-bottom: 10px;
+  background-color: #ffeeee;
+}
+
+.gpt90s-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #555;
+  text-align: center;
+}
+
+.gpt90s-welcome-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+}

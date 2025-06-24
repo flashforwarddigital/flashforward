@@ -1,0 +1,120 @@
+.solitaire-game {
+  background: #008000;
+  padding: 16px;
+  min-height: 600px;
+  user-select: none;
+  font-family: "MS Sans Serif", Arial, sans-serif;
+}
+
+.solitaire-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  color: white;
+  font-size: 14px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.solitaire-table {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.solitaire-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.solitaire-stock-waste {
+  display: flex;
+  gap: 16px;
+}
+
+.solitaire-foundation {
+  display: flex;
+  gap: 16px;
+}
+
+.solitaire-tableau {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.solitaire-pile {
+  position: relative;
+  width: 80px;
+  min-height: 112px;
+}
+
+.solitaire-card,
+.solitaire-card-placeholder {
+  width: 80px;
+  height: 112px;
+  border-radius: 4px;
+  position: absolute;
+}
+
+.solitaire-card {
+  background-color: white;
+  border: 1px solid #000;
+  cursor: pointer;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.solitaire-card.face-down {
+  background-color: #0066cc;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(0, 0, 0, 0.1) 10px,
+    rgba(0, 0, 0, 0.1) 20px
+  );
+}
+
+.solitaire-card.selected {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.solitaire-card-placeholder {
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Times New Roman", serif;
+}
+
+.card-content.red {
+  color: #cc0000;
+}
+
+.card-content.black {
+  color: #000000;
+}
+
+.suit {
+  font-size: 32px;
+  margin-top: 4px;
+}
+
+.solitaire-score,
+.solitaire-moves {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 8px;
+  border-radius: 4px;
+}

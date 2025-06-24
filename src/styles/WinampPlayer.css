@@ -1,0 +1,35 @@
+.winamp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  border: 1px solid #333;
+  min-height: 156px; /* 116px + 40px padding */
+}
+
+/* Ensure the Webamp player is properly sized and positioned */
+.winamp-container > div {
+  transform-origin: top left;
+  transform: scale(1);
+}
+
+.error-message,
+.loading-message,
+.no-files-message {
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  width: 100%;
+}
+
+.error-message {
+  color: #ff4444;
+}
+
+.loading-message {
+  color: #0CF2A0;
+} 

@@ -1,0 +1,120 @@
+.freecell-game {
+  background: #008000;
+  padding: 16px;
+  min-height: 600px;
+  user-select: none;
+  font-family: "MS Sans Serif", Arial, sans-serif;
+}
+
+.freecell-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  color: white;
+  font-size: 14px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.freecell-table {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.freecell-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.freecell-cells,
+.freecell-foundation {
+  display: flex;
+  gap: 16px;
+}
+
+.freecell-tableau {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.freecell-pile {
+  position: relative;
+  width: 80px;
+  min-height: 112px;
+}
+
+.freecell-card,
+.freecell-card-placeholder {
+  width: 80px;
+  height: 112px;
+  border-radius: 4px;
+  position: absolute;
+}
+
+.freecell-card {
+  background-color: white;
+  border: 1px solid #000;
+  cursor: pointer;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.freecell-card.selected {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 2px solid #ffff00;
+}
+
+.freecell-card-placeholder {
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Times New Roman", serif;
+}
+
+.card-content.red {
+  color: #cc0000;
+}
+
+.card-content.black {
+  color: #000000;
+}
+
+.suit {
+  font-size: 32px;
+  margin-top: 4px;
+}
+
+.freecell-moves {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.freecell-win-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border: 2px solid #000;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-size: 18px;
+  text-align: center;
+  z-index: 100;
+}
