@@ -42,6 +42,16 @@ export const BreakSection: React.FC<BreakSectionProps> = ({ className = "", back
         {children} {/* Render children here if present */}
 
       </div>
+
+      {/* Mobile-specific styles */}
+      <style jsx>{`
+        @media (max-width: 768px) {
+          section {
+            padding-top: 16px !important;
+            padding-bottom: 16px !important;
+          }
+        }
+      `}</style>
     </section>
   );
-}; 
+};

@@ -57,13 +57,13 @@ const ExaggeratedStatItem: React.FC<{ stat: ExaggeratedStat; index: number }> = 
 
   return (
     <div ref={ref} className="text-center">
-      <h3 className={`${typography.fontSize['4xl']} sm:text-5xl lg:text-6xl ${typography.fontFamily.light} ${colors.text.white} ${typography.tracking.tighter} mb-2`}>
+      <h3 className={`${typography.fontSize['3xl']} sm:text-4xl lg:text-6xl ${typography.fontFamily.light} ${colors.text.white} ${typography.tracking.tighter} mb-2`}>
         {stat.prefix}{displayedValue}{stat.suffix}
       </h3>
-       <p className={`${typography.fontSize.lg} ${typography.fontFamily.light} ${colors.text.white} ${typography.tracking.tight} mb-2`}>
+       <p className={`${typography.fontSize.base} md:${typography.fontSize.lg} ${typography.fontFamily.light} ${colors.text.white} ${typography.tracking.tight} mb-2`}>
         {stat.label}
       </p>
-      <p className={`${typography.fontSize.sm} ${typography.fontFamily.light} ${colors.text.gray[300]} ${typography.tracking.tight}`}>
+      <p className={`${typography.fontSize.xs} md:${typography.fontSize.sm} ${typography.fontFamily.light} ${colors.text.gray[300]} ${typography.tracking.tight}`}>
         {stat.description}
       </p>
     </div>
@@ -76,9 +76,9 @@ interface ExaggeratedStatsSectionProps {
 
 export const ExaggeratedStatsSection: React.FC<ExaggeratedStatsSectionProps> = ({ className = "" }) => {
   return (
-    <div className={`py-12 ${className}`}> {/* Added vertical padding to match others */}
+    <div className={`py-6 md:py-12 ${className}`}>
       <div className={`container mx-auto ${spacing.container.padding}`}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
           {exaggeratedStats.map((stat, index) => (
             <ExaggeratedStatItem key={index} stat={stat} index={index} />
           ))}
@@ -86,4 +86,4 @@ export const ExaggeratedStatsSection: React.FC<ExaggeratedStatsSectionProps> = (
       </div>
     </div>
   );
-}; 
+};

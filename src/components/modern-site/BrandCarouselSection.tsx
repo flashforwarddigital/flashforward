@@ -34,8 +34,8 @@ interface BrandCarouselSectionProps {
 
 export const BrandCarouselSection: React.FC<BrandCarouselSectionProps> = ({ className = "" }) => {
   return (
-    <section className={`py-12 overflow-hidden ${className}`}>
-      <div className={`container mx-auto ${spacing.container.padding} text-center mb-6`}>
+    <section className={`py-6 md:py-12 overflow-hidden ${className}`}>
+      <div className={`container mx-auto ${spacing.container.padding} text-center mb-4 md:mb-6`}>
         <h2 className={`${typography.fontSize.xl} ${typography.fontFamily.light} ${typography.tracking.tight} text-gray-300`}>
           trusted by
         </h2>
@@ -56,7 +56,7 @@ export const BrandCarouselSection: React.FC<BrandCarouselSectionProps> = ({ clas
             key={index} 
             src={logo} 
             alt="Brand Logo" 
-            className="h-16 mx-10 inline-block filter grayscale-0 opacity-80 hover:opacity-100 transition-opacity duration-200"
+            className="h-12 md:h-16 mx-6 md:mx-10 inline-block filter grayscale-0 opacity-80 hover:opacity-100 transition-opacity duration-200"
           />
         ))}
          {/* Duplicate logos for seamless loop */}
@@ -65,10 +65,10 @@ export const BrandCarouselSection: React.FC<BrandCarouselSectionProps> = ({ clas
             key={index + brandLogos.length} 
             src={logo} 
             alt="Brand Logo" 
-            className="h-16 mx-10 inline-block filter grayscale-0 opacity-80 hover:opacity-100 transition-opacity duration-200"
+            className="h-12 md:h-16 mx-6 md:mx-10 inline-block filter grayscale-0 opacity-80 hover:opacity-100 transition-opacity duration-200"
           />
         ))}
       </motion.div>
     </section>
   );
-}; 
+};

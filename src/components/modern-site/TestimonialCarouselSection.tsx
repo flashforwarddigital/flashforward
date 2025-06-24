@@ -82,7 +82,7 @@ export const TestimonialCarouselSection: React.FC<TestimonialCarouselSectionProp
   }, [testimonials.length]);
 
   return (
-    <section className={`py-8 overflow-hidden ${className}`}>
+    <section className={`py-4 md:py-8 overflow-hidden ${className}`}>
       <div className={`container mx-auto ${spacing.container.padding}`}>
         <motion.div 
           ref={carouselRef}
@@ -100,13 +100,13 @@ export const TestimonialCarouselSection: React.FC<TestimonialCarouselSectionProp
           {[...testimonials, ...testimonials].map((testimonial, index) => (
             <div 
               key={index} 
-              className="mx-16 inline-block text-center flex-shrink-0" 
-              style={{ width: '350px' }} // Adjust width to encourage 2 lines for quote
+              className="mx-8 md:mx-16 inline-block text-center flex-shrink-0" 
+              style={{ width: '300px', maxWidth: '90vw' }} // Adjust width for mobile
             >
-              <p className={`${typography.fontSize.lg} ${typography.fontFamily.light} ${colors.text.white} ${typography.tracking.tight} italic mb-2 leading-tight`}>
+              <p className={`${typography.fontSize.base} md:${typography.fontSize.lg} ${typography.fontFamily.light} ${colors.text.white} ${typography.tracking.tight} italic mb-2 leading-tight`}>
                 "{testimonial.quote}"
               </p>
-              <p className={`${typography.fontSize.sm} ${typography.fontFamily.light} ${colors.text.gray[400]} ${typography.tracking.tight}`}>
+              <p className={`${typography.fontSize.xs} md:${typography.fontSize.sm} ${typography.fontFamily.light} ${colors.text.gray[400]} ${typography.tracking.tight}`}>
                 {testimonial.speaker}
               </p>
             </div>
@@ -115,4 +115,4 @@ export const TestimonialCarouselSection: React.FC<TestimonialCarouselSectionProp
       </div>
     </section>
   );
-}; 
+};

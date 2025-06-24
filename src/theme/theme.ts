@@ -74,7 +74,7 @@ export const spacing = {
   },
   section: {
     padding: 'py-32',
-    break: 'py-8',
+    break: 'py-8 md:py-8 sm:py-4', // Reduced padding for mobile
   },
 } as const;
 
@@ -112,4 +112,4 @@ export const animations = {
       heavy: 40,
     },
   },
-} as const; 
+} as const;

@@ -61,9 +61,9 @@ interface StatsSectionProps {
 
 export const StatsSection: React.FC<StatsSectionProps> = ({ className = "" }) => {
   return (
-    <div className={`py-12 ${className}`}>
+    <div className={`py-6 md:py-12 ${className}`}>
       <div className={`container mx-auto ${spacing.container.padding}`}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
           {stats.map((stat, index) => (
             <StatItem key={index} stat={stat} index={index} />
           ))}
@@ -71,4 +71,4 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ className = "" }) =>
       </div>
     </div>
   );
-}; 
+};
