@@ -28,24 +28,30 @@ export const Frame = ({ onYearSelect }: FrameProps): JSX.Element => {
   };
 
   return (
-    <section className="relative w-full">
+    <section className="relative w-full h-screen flex items-center justify-center">
       <div
-        className={`relative w-full h-[791px] bg-cover bg-center transition-transform duration-1000 ease-in-out ${
+        className={`relative w-full h-full max-h-screen flex items-center justify-center transition-transform duration-1000 ease-in-out ${
           isZoomed ? 'scale-150' : 'scale-100'
         }`}
         onTransitionEnd={handleTransitionEnd}
       >
-        <Card className="relative w-full h-full border-0">
-          <CardContent className="p-0 h-full">
+        <Card className="relative w-full h-full border-0 flex items-center justify-center">
+          <CardContent className="p-0 h-full w-full flex items-center justify-center">
             {/* TV Screen Background */}
             <div 
-              className={`absolute top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%] w-[640px] h-[480px] transition-colors duration-300 ${
+              className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-colors duration-300 ${
                 isZoomed && !isTransitioning ? 'bg-white' : 'bg-black'
               }`}
               style={{
                 zIndex: isTransitioning ? 2 : 1,
                 backgroundColor: isZoomed && !isTransitioning ? '#f0f0d0' : 'black',
                 position: 'absolute',
+                width: '80vw',
+                height: '60vw',
+                maxWidth: '640px',
+                maxHeight: '480px',
+                top: '50%',
+                left: '50%',
               }}
             >
               {/* Vignette Overlay */}
@@ -72,24 +78,24 @@ export const Frame = ({ onYearSelect }: FrameProps): JSX.Element => {
             </div>
 
             {/* Buttons Container */}
-            <div className={`absolute top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%] w-[640px] h-[480px] flex items-center justify-center gap-12 transition-opacity duration-300 ${showButtons ? 'opacity-100' : 'opacity-0'}`} style={{ zIndex: showButtons ? 5 : 1 }}>
+            <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 transition-opacity duration-300 ${showButtons ? 'opacity-100' : 'opacity-0'}`} style={{ zIndex: showButtons ? 5 : 1, width: '80vw', maxWidth: '640px' }}>
               <div 
                 className="cursor-pointer flex items-center justify-center"
                 onClick={() => onYearSelect('1996')}
                 style={{ width: 'auto', height: 'auto' }}
               >
-                <img src="/1996.png" alt="1996" style={{ width: '150px', height: 'auto' }} />
+                <img src="/1996.png" alt="1996" style={{ width: '120px', height: 'auto', maxWidth: '100%' }} />
               </div>
               <div 
                 className="cursor-pointer flex items-center justify-center"
                 onClick={() => onYearSelect('2025')}
                 style={{ width: 'auto', height: 'auto' }}
               >
-                <img src="/2025.png" alt="2025" style={{ width: '150px', height: 'auto' }} />
+                <img src="/2025.png" alt="2025" style={{ width: '120px', height: 'auto', maxWidth: '100%' }} />
               </div>
             </div>
 
-            {/* Background Image Layer */}
+            {/* Background Image Layer - Responsive for mobile */}
             <div 
               className="absolute inset-0 w-full h-full bg-cover bg-center"
               style={{ 
@@ -98,10 +104,13 @@ export const Frame = ({ onYearSelect }: FrameProps): JSX.Element => {
               }}
             />
 
-            {/* Power Button Container */}
+            {/* Power Button Container - Adjusted for mobile */}
             <div 
-              className="absolute top-[50%] left-[50%] transform translate-y-[180px] w-[256px] h-[40px] hover:cursor-pointer"
-              style={{ zIndex: 4 }}
+              className="absolute left-1/2 transform -translate-x-1/2 w-[256px] h-[40px] hover:cursor-pointer"
+              style={{ 
+                zIndex: 4,
+                bottom: '15%'
+              }}
               onClick={handlePowerClick}
             >
               {!isZoomed && (
@@ -135,6 +144,18 @@ export const Frame = ({ onYearSelect }: FrameProps): JSX.Element => {
 
               button, [role="button"] {
                 cursor: pointer;
+              }
+              
+              @media (orientation: portrait) {
+                .pulsating-power-button {
+                  transform: translateY(-30%) !important;
+                }
+                
+                @keyframes pulsate {
+                  0% { transform: scale(1) translateY(-30%); }
+                  50% { transform: scale(1.10) translateY(-30%); }
+                  100% { transform: scale(1) translateY(-30%); }
+                }
               }
             `}</style>
           </CardContent>
