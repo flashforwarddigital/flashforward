@@ -190,21 +190,60 @@ const Desktop: React.FC<Windows95DesktopProps> = ({ onBack }) => {
     posthog.capture('new_folder_created');
   };
 
-  // Keep icons on the left for mobile view
-  const getIconPosition = (originalX: number, originalY: number, index: number) => {
+  // Organize desktop icons in a grid layout for mobile
+  const organizeIcons = () => {
+    const desktopIcons = Object.entries(appData)
+      .filter(([_, app]) => app.position && (app.position.x > 0 || app.position.y > 0))
+      .map(([id, app]) => ({ id, app }));
+    
     if (isMobile) {
-      // For mobile, create a vertical column layout on the left
-      return {
-        x: 20, // Keep all icons on the left
-        y: index * 90 + 20 // Stack vertically with spacing
-      };
+      // For mobile, create a grid layout with 2 columns
+      const leftColumnIcons = desktopIcons.filter((_, index) => index % 2 === 0);
+      const rightColumnIcons = desktopIcons.filter((_, index) => index % 2 === 1);
+      
+      return (
+        <>
+          {/* Left column */}
+          {leftColumnIcons.map(({ id, app }, index) => (
+            <Icon 
+              key={id}
+              id={id}
+              name={app.name}
+              icon={app.icon}
+              x={20}
+              y={index * 90 + 20}
+              onOpen={() => handleOpenApp(id, app.contentType === 'component' ? React.createElement(app.component as React.ComponentType<AppContentProps>, { onOpenApp: handleOpenApp }) : undefined, app.name)}
+            />
+          ))}
+          
+          {/* Right column */}
+          {rightColumnIcons.map(({ id, app }, index) => (
+            <Icon 
+              key={id}
+              id={id}
+              name={app.name}
+              icon={app.icon}
+              x={100}
+              y={index * 90 + 20}
+              onOpen={() => handleOpenApp(id, app.contentType === 'component' ? React.createElement(app.component as React.ComponentType<AppContentProps>, { onOpenApp: handleOpenApp }) : undefined, app.name)}
+            />
+          ))}
+        </>
+      );
     }
     
     // For desktop, use original positions
-    return {
-      x: originalX * 0.95,
-      y: originalY * 0.95
-    };
+    return desktopIcons.map(({ id, app }) => (
+      <Icon 
+        key={id}
+        id={id}
+        name={app.name}
+        icon={app.icon}
+        x={app.position.x * 0.95}
+        y={app.position.y * 0.95}
+        onOpen={() => handleOpenApp(id, app.contentType === 'component' ? React.createElement(app.component as React.ComponentType<AppContentProps>, { onOpenApp: handleOpenApp }) : undefined, app.name)}
+      />
+    ));
   };
 
   return (
@@ -222,19 +261,8 @@ const Desktop: React.FC<Windows95DesktopProps> = ({ onBack }) => {
           />
         )}
         
-        {/* Render predefined app icons */}
-        {Object.entries(appData)
-          .filter(([_, app]) => app.position && (app.position.x > 0 || app.position.y > 0))
-          .map(([id, app], index) => (
-            <Icon 
-              key={id}
-              id={id}
-              name={app.name}
-              icon={app.icon}
-              {...getIconPosition(app.position.x, app.position.y, index)}
-              onOpen={() => handleOpenApp(id, app.contentType === 'component' ? React.createElement(app.component as React.ComponentType<AppContentProps>, { onOpenApp: handleOpenApp }) : undefined, app.name)}
-            />
-          ))}
+        {/* Render desktop icons in a grid layout */}
+        {organizeIcons()}
         
         {/* Render predefined and dynamic app windows */}
         {[...openApps].map(appId => {

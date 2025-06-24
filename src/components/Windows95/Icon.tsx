@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface IconProps {
   id: string;
@@ -10,8 +10,16 @@ interface IconProps {
 }
 
 const Icon: React.FC<IconProps> = ({ id, name, icon, x, y, onOpen }) => {
-  // Detect if we're on mobile
-  const isMobile = window.innerWidth < 768;
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   return (
     <div 
@@ -27,6 +35,13 @@ const Icon: React.FC<IconProps> = ({ id, name, icon, x, y, onOpen }) => {
       onDoubleClick={(e) => {
         // On desktop, keep double-click behavior
         if (!isMobile) {
+          e.preventDefault();
+          onOpen();
+        }
+      }}
+      onTouchEnd={(e) => {
+        // For touch devices, ensure we handle touch events properly
+        if (isMobile) {
           e.preventDefault();
           onOpen();
         }
