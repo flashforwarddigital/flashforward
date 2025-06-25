@@ -83,7 +83,7 @@ export const Frame: React.FC<FrameProps> = ({ onYearSelect }) => {
               <div className="group cursor-pointer">
                 <div className="relative overflow-hidden rounded-lg border-2 border-gray-800 transition-all duration-300 group-hover:border-pink-500">
                   <img 
-                    src="/2025.png" 
+                    src="/2.png" 
                     alt="2025 Web Experience" 
                     className="w-64 h-64 md:w-80 md:h-80 object-cover transition-transform duration-500 group-hover:scale-105"
                   />
